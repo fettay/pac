@@ -1,0 +1,92 @@
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  background-color: lightgray;
+
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.form-wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: lightgray;
+}
+
+.form-container {
+    position: relative;
+    width: 80vmin;
+    margin-top: 20px;
+    background-color: white;
+    border-radius: 25px;
+    box-sizing: border-box;
+  }
+
+.form-title{
+  background-color: #7FDBFF;
+  padding: 10px;
+}
+
+.form-title p{
+  text-align: center;
+  width: 100%;
+  color: #fff;
+  margin: 0;
+  font-size: 20px;
+}
+
+
+[type=radio] { 
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* IMAGE STYLES */
+.radio-field + div{
+  cursor: pointer;
+}
+
+/* CHECKED STYLES */
+label.active{
+  background-color: #7FDBFF;
+}
+
+.field p{
+  text-align: center;
+  margin-top: 20px;
+  font-size: 20px;
+}
+
+.next-button-wrapper{
+  padding-bottom: 20px;
+}
+
+.next-button{
+  color: #7FDBFF !important;
+  border-color: #7FDBFF !important;
+}
+
+.next-button:hover{
+  color: #fff !important;
+  background-color: #7FDBFF !important;
+}
+
+.input-wrapper{
+  margin-left: 20px;
+  margin-right: 20px;
+}
