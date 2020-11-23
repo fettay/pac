@@ -12,7 +12,7 @@ import getConfig from 'next/config';
 
 
 const {publicRuntimeConfig, _} = getConfig();
-const requiredFields = ["zip_code", "phone", "heat_system", "household_nb", "household_wage", "is_owner"];
+const requiredFields = ["zip_code", "email", "phone", "heat_system", "household_nb", "household_wage", "is_owner"];
 let custom = {
   enterRight: 'your custom css transition classes',
   enterLeft : 'your custom css transition classes',
