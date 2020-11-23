@@ -3,7 +3,7 @@ module.exports = {
       // Will be available on both server and client
       serverUrl: 'https://api.energie-durable.net',
     },
-    serverRuntimeConfig: {
-      
+    images: {
+        domains: ["energie-durable.net"]
     }
   }
