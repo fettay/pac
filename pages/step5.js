@@ -11,7 +11,7 @@ class Step5 extends Component {
         this.state = {selected : -1, values: {household_wage: null}, targetNumber: this.targetMap[1]};
     }
     change(index, value){
-        this.setState({selected: index, values: {household_wage: value}}, function(){
+        this.setState({selected: index, values: {household_wage: value}, valid: false}, function(){
             this.props.updateForm(this.state.values);
             return this.props.nextStep();  
         });
@@ -31,7 +31,7 @@ class Step5 extends Component {
             <Field index={0} active={this.state.selected == 0} grid="col-md-6" image="/minus.png" text={"Je déclare moins de " + this.state.targetNumber} value={"-" + this.state.targetNumber} onChange={this.change.bind(this)}></Field>
             <Field index={1} active={this.state.selected == 1} grid="col-md-6" image="/add.png" text={"Je déclare plus de " + this.state.targetNumber} value={"+" + this.state.targetNumber} onChange={this.change.bind(this)}></Field>
           </div>
-          <NextButton updateForm={this.props.updateForm} value={this.state.values} {...this.props}/>
+          <NextButton valid={this.state.valid} updateForm={this.props.updateForm} value={this.state.values} {...this.props}/>
       </Form>)
     }
   }

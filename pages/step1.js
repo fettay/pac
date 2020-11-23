@@ -14,7 +14,7 @@ class Step1 extends Component {
         window.scrollTo(0, 0)
     }
     change(index, value){
-        this.setState({selected: index, values: {is_owner: value}}, function(){
+        this.setState({selected: index, values: {is_owner: value}, valid: false}, function(){
           this.props.updateForm(this.state.values);
           return this.props.nextStep();
         });
@@ -26,7 +26,7 @@ class Step1 extends Component {
             <Field index={1} active={this.state.selected == 1} grid="col-md-6" image="/rent.png" text="Je suis locataire" value={false} onChange={this.change.bind(this)}></Field>
           </div>
           
-          <NextButton value={this.state.values} updateForm={this.props.updateForm} {...this.props}/>
+          <NextButton valid={this.state.valid} value={this.state.values} updateForm={this.props.updateForm} {...this.props}/>
       </Form>)
     }
   }

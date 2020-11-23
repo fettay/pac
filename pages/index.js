@@ -48,6 +48,8 @@ class Home extends Component{
     
     if(Object.keys(toSend).length > 1)
         axios.post(publicRuntimeConfig.serverUrl + "/pac", toSend);
+
+    window.scrollTo(0, 0);
   }
   updateFormValues(values){
     var newValues  = this.state.formValues;

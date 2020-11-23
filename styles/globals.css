@@ -82,7 +82,13 @@ label.active{
   border-color: #7FDBFF !important;
 }
 
-.next-button:hover{
+.next-button:disabled{
+  margin: 5px;
+  color: lightgrey !important;
+  border-color: lightgrey !important;
+}
+
+.next-button:hover:enabled{
   color: #fff !important;
   background-color: #7FDBFF !important;
 }
@@ -90,4 +96,8 @@ label.active{
 .input-wrapper{
   margin-left: 20px;
   margin-right: 20px;
+}
+
+.invalid{
+  background-color: pink !important;
 }

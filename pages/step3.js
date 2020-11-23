@@ -6,41 +6,62 @@ import NextButton from 'components/nextbutton';
 class Step3 extends Component {
     constructor(props){
         super(props);
-        this.state = {values: {phone : null, zip_code: null}}
+        this.validations = {email: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                            phone: /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im,
+                            zip_code: /^\d{5}/};
+        this.state = {values: {phone : "", zip_code: "", email: ""}, valid: false};
         // this.elements = {0: React.createRef(), 1: React.createRef()}
     }
     change(e){
         var values = this.state.values;
+        var validations = this.validations;
         values[e.target.name] = e.target.value;
         this.setState({values: values});
-        var hasNull = Object.keys(values).some(function(k) {
-            return values[k] === null;
+        var hasEmpty = Object.keys(values).some(function(k) {
+            if(k in validations)
+                return !validations[k].test(values[k]);
+            return values[k] == "";
         });
-        if(!hasNull){
+        if(!hasEmpty){
+            this.setState({valid: true});
             this.props.updateForm(values);
-            return this.props.nextStep();
+            // return this.props.nextStep();
+        }
+        else{
+            this.setState({valid: false});
         }
     }
-    componentDidMount(){
-        window.scrollTo(0, 0)
+    checkValid(e){
+        var key = e.target.name;
+        if(key in this.validations && !this.validations[key].test(e.target.value)){
+            e.target.classList.add("invalid");
+        }
+        else{
+            e.target.classList.remove("invalid");
+        }
     }
     render() {
         return (<Form>
             <div class="input-wrapper">
                 <Form.Group controlId="formBasicEmail">
+                    <Form.Label>email</Form.Label>
+                    <Form.Control type="email" name="email" placeholder="contact@energie-durable.net" onBlur={this.checkValid.bind(this)} onChange={this.change.bind(this)}/>
+                </Form.Group>
+
+                <Form.Group controlId="formBasicPhone">
                     <Form.Label>Numéro de portable</Form.Label>
-                    <Form.Control type="phone" name="phone" placeholder="0601123435" pattern="[0-9]{10}" onBlur={this.change.bind(this)}/>
+                    <Form.Control type="phone" name="phone" placeholder="0601123435" onBlur={this.checkValid.bind(this)} onChange={this.change.bind(this)}/>
                 </Form.Group>
 
                 <Form.Group controlId="formBasicPassword">
                     <Form.Label>Code Postal</Form.Label>
-                    <Form.Control type="number" name="zip_code" placeholder="75001" pattern="[0-9]{5}" onBlur={this.change.bind(this)}/>
+                    <Form.Control type="number" name="zip_code" placeholder="75001" onBlur={this.checkValid.bind(this)} onChange={this.change.bind(this)}/>
                 </Form.Group>
                 <Form.Text className="text-muted">
                     Pour vérifier votre éligibilité    
                 </Form.Text>
             </div>
-            <NextButton updateForm={this.props.updateForm} value={this.state.values} {...this.props}/>
+            <NextButton valid={this.state.valid} updateForm={this.props.updateForm} value={this.state.values} {...this.props}/>
       </Form>)
     }
   }

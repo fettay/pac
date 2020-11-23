@@ -14,7 +14,7 @@ class Step2 extends Component {
         window.scrollTo(0, 0)
     }
     change(index, value){
-      this.setState({selected: index, values: {heat_system: value}}, function(){
+      this.setState({selected: index, values: {heat_system: value}, valid: false}, function(){
         this.props.updateForm(this.state.values);
         return this.props.nextStep();
       });
@@ -28,7 +28,7 @@ class Step2 extends Component {
             <Field index={3} active={this.state.selected == 3} grid="col-md-6" image="/lightning.png" text="Je me chauffe à l'éléctrique" value="electrique" onChange={this.change.bind(this)}></Field>
             <Field index={4} active={this.state.selected == 4} grid="col-md-12" image="/question-mark.png" text="Je ne sais pas" value="nsp" onChange={this.change.bind(this)}></Field>
           </div>
-          <NextButton updateForm={this.props.updateForm} value={this.state.values} {...this.props}/>
+          <NextButton valid={this.state.valid} updateForm={this.props.updateForm} value={this.state.values} {...this.props}/>
       </Form>)
     }
   }

@@ -7,17 +7,14 @@ import Field from 'components/field';
 class Step4 extends Component {
     constructor(props){
         super(props);
-        this.state = {selected : -1, values: {household_nb : null}}
+        this.state = {selected : -1, values: {household_nb : null}, valid: false}
         // this.elements = {0: React.createRef(), 1: React.createRef()}
     }
     change(index, value){
-      this.setState({selected: index, values: {household_nb: value}}, function(){
+      this.setState({selected: index, values: {household_nb: value}, valid: true}, function(){
         this.props.updateForm(this.state.values);
         return this.props.nextStep();
       });
-    }
-    componentDidMount(){
-        window.scrollTo(0, 0)
     }
     render() {
         return (<Form>
@@ -28,7 +25,7 @@ class Step4 extends Component {
             <Field index={3} active={this.state.selected == 3} grid="col-md-6" image="/family4.png" text="Nous sommes 4 sur ma fiche d'imposition" value="4" onChange={this.change.bind(this)}></Field>
             <Field index={4} active={this.state.selected == 4} grid="col-md-12" image="/family5.png" text="Nous sommes 5 ou plus sur ma fiche d'imposition" value="5" onChange={this.change.bind(this)}></Field>
           </div>
-          <NextButton updateForm={this.props.updateForm} value={this.state.values} {...this.props}/>
+          <NextButton valid={this.state.valid} updateForm={this.props.updateForm} value={this.state.values} {...this.props}/>
       </Form>)
     }
   }
