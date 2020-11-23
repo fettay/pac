@@ -14,7 +14,10 @@ class Step1 extends Component {
         window.scrollTo(0, 0)
     }
     change(index, value){
-        this.setState({selected: index, values: {is_owner: value}});
+        this.setState({selected: index, values: {is_owner: value}}, function(){
+          this.props.updateForm(this.state.values);
+          return this.props.nextStep();
+        });
     }
     render() {
         return (<Form>

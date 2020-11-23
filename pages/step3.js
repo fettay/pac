@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Form from 'react-bootstrap/Form'; 
-import NextButton from 'components/nextbutton'
+import NextButton from 'components/nextbutton';
 
 
 class Step3 extends Component {
@@ -13,6 +13,13 @@ class Step3 extends Component {
         var values = this.state.values;
         values[e.target.name] = e.target.value;
         this.setState({values: values});
+        var hasNull = Object.keys(values).some(function(k) {
+            return values[k] === null;
+        });
+        if(!hasNull){
+            this.props.updateForm(values);
+            return this.props.nextStep();
+        }
     }
     componentDidMount(){
         window.scrollTo(0, 0)
@@ -22,12 +29,12 @@ class Step3 extends Component {
             <div class="input-wrapper">
                 <Form.Group controlId="formBasicEmail">
                     <Form.Label>Numéro de portable</Form.Label>
-                    <Form.Control type="text" name="phone" placeholder="0601123435" onChange={this.change.bind(this)}/>
+                    <Form.Control type="phone" name="phone" placeholder="0601123435" pattern="[0-9]{10}" onBlur={this.change.bind(this)}/>
                 </Form.Group>
 
                 <Form.Group controlId="formBasicPassword">
                     <Form.Label>Code Postal</Form.Label>
-                    <Form.Control type="number" name="zip_code" placeholder="75001" onChange={this.change.bind(this)}/>
+                    <Form.Control type="number" name="zip_code" placeholder="75001" pattern="[0-9]{5}" onBlur={this.change.bind(this)}/>
                 </Form.Group>
                 <Form.Text className="text-muted">
                     Pour vérifier votre éligibilité    

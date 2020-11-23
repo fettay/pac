@@ -7,8 +7,12 @@ import Results from "pages/results";
 import Nav from "components/nav";
 import StepWizard from 'react-step-wizard';
 import React, {Component} from 'react';
+import axios from 'axios';
+import getConfig from 'next/config';
 
 
+const {publicRuntimeConfig, _} = getConfig();
+const requiredFields = ["zip_code", "phone", "heat_system", "household_nb", "household_wage", "is_owner"];
 let custom = {
   enterRight: 'your custom css transition classes',
   enterLeft : 'your custom css transition classes',
@@ -21,6 +25,7 @@ class Home extends Component{
   constructor(props){
     super(props);
     this.state = {formValues: {}};
+    this.sentValues = {};
   }
   uuidv4() {
     return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
@@ -30,6 +35,19 @@ class Home extends Component{
     if (localStorage.getItem("uuid") === null) {
         localStorage.setItem("uuid", this.uuidv4());
     }
+  }
+  onStepChange(){
+    var toSend = {id: localStorage.getItem("uuid")}; 
+    for(var val in this.state.formValues)
+        if(requiredFields.includes(val))
+          if(!val in this.sentValues || this.state.formValues[val] != this.sentValues[val]){
+            toSend[val] = this.state.formValues[val];
+            this.sentValues[val] = this.state.formValues[val];
+          }
+            
+    
+    if(Object.keys(toSend).length > 1)
+        axios.post(publicRuntimeConfig.serverUrl + "/pac", toSend);
   }
   updateFormValues(values){
     var newValues  = this.state.formValues;
@@ -42,7 +60,7 @@ class Home extends Component{
       <div className="form-wrapper">
         <div className="form-container">
           <div className="form-title"><p>Testez votre éligibilité</p></div>
-            <StepWizard nav={<Nav />} transitions={custom}>
+            <StepWizard nav={<Nav />} transitions={custom} onStepChange={this.onStepChange.bind(this)}>
               <Step1 updateForm={this.updateFormValues.bind(this)}/>
               <Step2 updateForm={this.updateFormValues.bind(this)}/>
               <Step3 updateForm={this.updateFormValues.bind(this)}/>

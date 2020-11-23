@@ -12,7 +12,7 @@ const {publicRuntimeConfig, _} = getConfig()
 class Results extends Component {
     constructor(props){
         super(props);
-        this.state = {eligible: false};
+        this.state = {isEligible: null};
     }
     change(){
         return;
@@ -36,7 +36,15 @@ class Results extends Component {
         }
     }
     render() {
-        if(this.state.isEligible){
+        if(this.state.isEligible === null){
+            return (<Form>
+                <div key={`inline-radio`} className="mb-3 field">
+                  <Field index={10} active={this.state.selected == 0} grid="col-md-12" image="/confetti.png" text="Félicitations, vous êtes éligible. Nos équipes vous contacterons dans les plus brefs délais." value="" onChange={this.change}></Field>
+                </div>
+                <NextButton updateForm={this.props.updateForm} value={this.state.values} {...this.props}/>
+            </Form>)
+        }
+        else if(this.state.isEligible){
             return (<Form>
                 <div key={`inline-radio`} className="mb-3 field">
                   <Field index={10} active={this.state.selected == 0} grid="col-md-12" image="/confetti.png" text="Félicitations, vous êtes éligible. Nos équipes vous contacterons dans les plus brefs délais." value="" onChange={this.change}></Field>

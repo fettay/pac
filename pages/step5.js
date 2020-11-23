@@ -11,7 +11,10 @@ class Step5 extends Component {
         this.state = {selected : -1, values: {household_wage: null}, targetNumber: this.targetMap[1]};
     }
     change(index, value){
-        this.setState({selected: index, values: {household_wage : value}});
+        this.setState({selected: index, values: {household_wage: value}}, function(){
+            this.props.updateForm(this.state.values);
+            return this.props.nextStep();  
+        });
     }
     componentDidUpdate(){
         if(!("household_nb" in this.props.values)){

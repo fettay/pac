@@ -11,7 +11,10 @@ class Step4 extends Component {
         // this.elements = {0: React.createRef(), 1: React.createRef()}
     }
     change(index, value){
-        this.setState({selected: index, values: {household_nb : value}});
+      this.setState({selected: index, values: {household_nb: value}}, function(){
+        this.props.updateForm(this.state.values);
+        return this.props.nextStep();
+      });
     }
     componentDidMount(){
         window.scrollTo(0, 0)
