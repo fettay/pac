@@ -26,6 +26,8 @@ class Results extends Component {
     componentDidUpdate(){
         if (!this.props.isActive)
             return 
+
+        this.props.ga.pageview("results");
         var eligible = this.isEligible();
         if(this.state.isEligible != eligible){
             this.setState({isEligible: eligible});

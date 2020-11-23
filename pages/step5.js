@@ -24,6 +24,8 @@ class Step5 extends Component {
         if(this.state.targetNumber != newTarget){
             this.setState({targetNumber: newTarget});
         }
+        if(this.props.isActive)
+            this.props.ga.pageview("step5");
     }
     render() {
         return (<Form>

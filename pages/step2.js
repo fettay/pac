@@ -13,6 +13,10 @@ class Step2 extends Component {
     componentDidMount(){
         window.scrollTo(0, 0)
     }
+    componentDidUpdate(){
+      if(this.props.isActive)
+        this.props.ga.pageview("step2");
+    }
     change(index, value){
       this.setState({selected: index, values: {heat_system: value}, valid: true}, function(){
         this.props.updateForm(this.state.values);

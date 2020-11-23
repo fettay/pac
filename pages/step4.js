@@ -16,6 +16,10 @@ class Step4 extends Component {
         return this.props.nextStep();
       });
     }
+    componentDidUpdate(){
+      if(this.props.isActive)
+        this.props.ga.pageview("step4");
+    }
     render() {
         return (<Form>
           <div key={`inline-radio`} className="mb-3 field">

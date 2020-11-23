@@ -31,6 +31,10 @@ class Step3 extends Component {
             this.setState({valid: false});
         }
     }
+    componentDidUpdate(){
+        if(this.props.isActive)
+          this.props.ga.pageview("step3");
+    }
     checkValid(e){
         var key = e.target.name;
         if(key in this.validations && !this.validations[key].test(e.target.value)){

@@ -13,6 +13,10 @@ class Step1 extends Component {
     componentDidMount(){
         window.scrollTo(0, 0)
     }
+    componentDidUpdate(){
+      if(this.props.isActive)
+        this.props.ga.pageview("step1");
+    }
     change(index, value){
         this.setState({selected: index, values: {is_owner: value}, valid: true}, function(){
           this.props.updateForm(this.state.values);

@@ -9,6 +9,11 @@ import StepWizard from 'react-step-wizard';
 import React, {Component} from 'react';
 import axios from 'axios';
 import getConfig from 'next/config';
+import ReactGA from 'react-ga';
+
+
+ReactGA.initialize('G-NK73FCNR8G');
+ReactGA.pageview("Index");
 
 
 const {publicRuntimeConfig, _} = getConfig();
@@ -63,12 +68,12 @@ class Home extends Component{
         <div className="form-container">
           <div className="form-title"><p>Testez votre éligibilité</p></div>
             <StepWizard nav={<Nav />} transitions={custom} onStepChange={this.onStepChange.bind(this)}>
-              <Step1 updateForm={this.updateFormValues.bind(this)}/>
-              <Step2 updateForm={this.updateFormValues.bind(this)}/>
-              <Step3 updateForm={this.updateFormValues.bind(this)}/>
-              <Step4 updateForm={this.updateFormValues.bind(this)}/>
-              <Step5 values={this.state.formValues} updateForm={this.updateFormValues.bind(this)}/>
-              <Results values={this.state.formValues}/>
+              <Step1 ga={ReactGA} updateForm={this.updateFormValues.bind(this)}/>
+              <Step2 ga={ReactGA} updateForm={this.updateFormValues.bind(this)}/>
+              <Step3 ga={ReactGA} updateForm={this.updateFormValues.bind(this)}/>
+              <Step4 ga={ReactGA} updateForm={this.updateFormValues.bind(this)}/>
+              <Step5 ga={ReactGA} values={this.state.formValues} updateForm={this.updateFormValues.bind(this)}/>
+              <Results ga={ReactGA} values={this.state.formValues}/>
             </StepWizard>
         </div>
       </div>
