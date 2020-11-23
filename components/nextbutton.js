@@ -30,20 +30,20 @@ class NextButton extends Component {
                 
             return ( <div className="row next-button-wrapper">
                         <div className="col-md-6 text-center">
-                            <Button className="next-button" variant="outline-primary" disabled={!this.props.valid} onClick={this.nextStep.bind(this)}>Suivant</Button>
+                            <Button className="next-button" variant="outline-primary" onClick={this.props.previousStep}>Précédent</Button>
                         </div>
                         <div className="col-md-6 text-center">
-                            <Button className="next-button" variant="outline-primary" onClick={this.props.previousStep}>Précédent</Button>
+                            <Button className="next-button" variant="outline-primary" disabled={!this.props.valid} onClick={this.nextStep.bind(this)}>Suivant</Button>
                         </div>
                     </div>)
         }
         else if(this.props.currentStep == this.props.totalSteps - 1){
             return (<div className="row next-button-wrapper">
                 <div className="col-md-6 text-center">
-                    <Button className="next-button" variant="outline-primary" disabled={!this.props.valid} onClick={this.nextStep.bind(this)}>Résultat</Button>
+                    <Button className="next-button" variant="outline-primary" onClick={this.props.previousStep}>Précédent</Button>
                 </div>
                 <div className="col-md-6 text-center">
-                    <Button className="next-button" variant="outline-primary" onClick={this.props.previousStep}>Précédent</Button>
+                    <Button className="next-button" variant="outline-primary" disabled={!this.props.valid} onClick={this.nextStep.bind(this)}>Résultat</Button>
                 </div>
             </div>)
         }

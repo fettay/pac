@@ -7,14 +7,14 @@ import Field from 'components/field';
 class Step1 extends Component {
     constructor(props){
         super(props);
-        this.state = {selected : -1, values: {is_owner: null}}
+        this.state = {selected : -1, values: {is_owner: null}, valid: false}
         // this.elements = {0: React.createRef(), 1: React.createRef()}
     }
     componentDidMount(){
         window.scrollTo(0, 0)
     }
     change(index, value){
-        this.setState({selected: index, values: {is_owner: value}, valid: false}, function(){
+        this.setState({selected: index, values: {is_owner: value}, valid: true}, function(){
           this.props.updateForm(this.state.values);
           return this.props.nextStep();
         });

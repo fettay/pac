@@ -44,22 +44,19 @@ class Step3 extends Component {
         return (<Form>
             <div class="input-wrapper">
                 <Form.Group controlId="formBasicEmail">
-                    <Form.Label>email</Form.Label>
+                    <Form.Label>Email:</Form.Label>
                     <Form.Control type="email" name="email" placeholder="contact@energie-durable.net" onBlur={this.checkValid.bind(this)} onChange={this.change.bind(this)}/>
                 </Form.Group>
 
                 <Form.Group controlId="formBasicPhone">
-                    <Form.Label>Numéro de portable</Form.Label>
-                    <Form.Control type="phone" name="phone" placeholder="0601123435" onBlur={this.checkValid.bind(this)} onChange={this.change.bind(this)}/>
+                    <Form.Label>Numéro de mobile:</Form.Label>
+                    <Form.Control type="phone" name="phone" placeholder="0612345678" onBlur={this.checkValid.bind(this)} onChange={this.change.bind(this)}/>
                 </Form.Group>
 
                 <Form.Group controlId="formBasicPassword">
-                    <Form.Label>Code Postal</Form.Label>
-                    <Form.Control type="number" name="zip_code" placeholder="75001" onBlur={this.checkValid.bind(this)} onChange={this.change.bind(this)}/>
+                    <Form.Label>Code postal:</Form.Label>
+                    <Form.Control type="text" name="zip_code" placeholder="01234" onBlur={this.checkValid.bind(this)} onChange={this.change.bind(this)}/>
                 </Form.Group>
-                <Form.Text className="text-muted">
-                    Pour vérifier votre éligibilité    
-                </Form.Text>
             </div>
             <NextButton valid={this.state.valid} updateForm={this.props.updateForm} value={this.state.values} {...this.props}/>
       </Form>)

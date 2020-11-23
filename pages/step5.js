@@ -8,10 +8,10 @@ class Step5 extends Component {
     constructor(props){
         super(props);
         this.targetMap = {1: "19074€", 2: "27896€", 3: "33547€", 4: "39192€", 5: "44860€"}
-        this.state = {selected : -1, values: {household_wage: null}, targetNumber: this.targetMap[1]};
+        this.state = {selected : -1, values: {household_wage: null}, targetNumber: this.targetMap[1], valid: false};
     }
     change(index, value){
-        this.setState({selected: index, values: {household_wage: value}, valid: false}, function(){
+        this.setState({selected: index, values: {household_wage: value}, valid: true}, function(){
             this.props.updateForm(this.state.values);
             return this.props.nextStep();  
         });
