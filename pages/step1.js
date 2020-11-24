@@ -14,7 +14,7 @@ class Step1 extends Component {
         window.scrollTo(0, 0)
     }
     componentDidUpdate(){
-      if(this.props.isActive)
+      if(this.props.isActive && this.props.ga !== null)
         this.props.ga.pageview("step1");
     }
     change(index, value){

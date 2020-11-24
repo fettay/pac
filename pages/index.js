@@ -12,10 +12,6 @@ import getConfig from 'next/config';
 import ReactGA from 'react-ga';
 
 
-ReactGA.initialize('G-NK73FCNR8G');
-ReactGA.pageview("Index");
-
-
 const {publicRuntimeConfig, _} = getConfig();
 const requiredFields = ["zip_code", "email", "phone", "heat_system", "household_nb", "household_wage", "is_owner"];
 let custom = {
@@ -25,11 +21,10 @@ let custom = {
   exitLeft  : 'your custom css transition classes'
 }
 
-
 class Home extends Component{
   constructor(props){
     super(props);
-    this.state = {formValues: {}};
+    this.state = {formValues: {}, reactGa: null};
     this.sentValues = {};
   }
   uuidv4() {
@@ -38,8 +33,20 @@ class Home extends Component{
   )}
   componentDidMount(){
     if (localStorage.getItem("uuid") === null) {
-        localStorage.setItem("uuid", this.uuidv4());
+        var userId = this.uuidv4();
+        localStorage.setItem("uuid", userId);
     }
+    ReactGA.initialize('UA-183871272-1', {
+      gaOptions: {
+        userId: userId
+      }
+    });
+    ReactGA.pageview("Index");
+    ReactGA.event({
+      category: 'User',
+      action: 'New user entered the app'
+    });      
+    this.setState({reactGa: ReactGA});
   }
   onStepChange(){
     var toSend = {id: localStorage.getItem("uuid")}; 
@@ -68,12 +75,12 @@ class Home extends Component{
         <div className="form-container">
           <div className="form-title"><p>Testez votre éligibilité</p></div>
             <StepWizard nav={<Nav />} transitions={custom} onStepChange={this.onStepChange.bind(this)}>
-              <Step1 ga={ReactGA} updateForm={this.updateFormValues.bind(this)}/>
-              <Step2 ga={ReactGA} updateForm={this.updateFormValues.bind(this)}/>
-              <Step3 ga={ReactGA} updateForm={this.updateFormValues.bind(this)}/>
-              <Step4 ga={ReactGA} updateForm={this.updateFormValues.bind(this)}/>
-              <Step5 ga={ReactGA} values={this.state.formValues} updateForm={this.updateFormValues.bind(this)}/>
-              <Results ga={ReactGA} values={this.state.formValues}/>
+              <Step1 ga={this.state.reactGa} updateForm={this.updateFormValues.bind(this)}/>
+              <Step2 ga={this.state.reactGa} updateForm={this.updateFormValues.bind(this)}/>
+              <Step3 ga={this.state.reactGa} updateForm={this.updateFormValues.bind(this)}/>
+              <Step4 ga={this.state.reactGa} updateForm={this.updateFormValues.bind(this)}/>
+              <Step5 ga={this.state.reactGa} values={this.state.formValues} updateForm={this.updateFormValues.bind(this)}/>
+              <Results ga={this.state.reactGa} values={this.state.formValues}/>
             </StepWizard>
         </div>
       </div>

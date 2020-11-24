@@ -28,6 +28,10 @@ class Results extends Component {
             return 
 
         this.props.ga.pageview("results");
+        this.props.ga.event({
+            category: 'User',
+            action: 'User completed the form'
+          });
         var eligible = this.isEligible();
         if(this.state.isEligible != eligible){
             this.setState({isEligible: eligible});

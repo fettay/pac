@@ -25,6 +25,10 @@ class Step3 extends Component {
         if(!hasEmpty){
             this.setState({valid: true});
             this.props.updateForm(values);
+            this.props.ga.event({
+              category: 'User',
+              action: 'User filled personal data'
+            });
             // return this.props.nextStep();
         }
         else{
